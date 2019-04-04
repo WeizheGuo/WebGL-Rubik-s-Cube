@@ -25,21 +25,20 @@ var PROJMATRIX = mat4();
 var MVMATRIX = mat4();
 
 // For the lookAt() function - for the model-view matrix
-var eye = vec3(0.0, 0.0, 8.0); // Place camera
-var at = vec3(0.0, 0.0, 0.0); // Point camera towards origin
-var up = vec3(0.0, 1.0, 0.0); // Upwards is always the positive Y-Axis
+var eye = vec3(0.0, 0.0, 8.0);
+var at = vec3(0.0, 0.0, 0.0);
+var up = vec3(0.0, 1.0, 0.0);
 
-// variables used to set "eye" for the lookAt() function
 var cameraRadius = 30.0;
-var cameraRadiusMinimum = 12.5 // To be used for zoom
-var cameraRadiusMaximum = 50.0; // To be used for zoom
+var cameraRadiusMinimum = 12.5;
+var cameraRadiusMaximum = 50.0;
 
 var THETA = radians(20);
-var PHI = radians(70);
+var PHI = radians(60);
 
 // For the perspective() function - for the projection matrix
-var fovy = 45.0;  // Angle (in degrees) of the field-of-view in the Y-direction
-var aspect = 1.0; // Aspect ratio of the viewport
+var fovy = 45.0; 
+var aspect = 1.0;
 var near = 0.3;
 var far = 1000;
 
@@ -158,8 +157,6 @@ var moves = [
 var textFile = null,
   makeTextFile = function (text) {
     var data = new Blob([text], {type: 'text/plain'});
-    // If we are replacing a previously generated file we need to
-    // manually revoke the object URL to avoid memory leaks.
     if (textFile !== null) {
       window.URL.revokeObjectURL(textFile);
     }
@@ -203,8 +200,7 @@ function callPush(a,b,c,d,e,f,g,h) {
 
 // Work out the up vec for given phi and theta
 function angleworker (dX, dY){
-  var absPhi = Math.abs(degrees(PHI)%360);
-    
+  var absPhi = Math.abs(degrees(PHI)%360); 
   // Allow for rotation beyond +-360 degrees
   if (absPhi > 180.0 && absPhi < 270.0 || PHI < 0.0) {
     if (degrees(PHI)%360 < -180.0) {
@@ -282,78 +278,78 @@ window.onload = function init() {
   canvas.addEventListener("mousemove", mouseMove, false);
 
   // Set up button listeners
-  document.getElementById( "LButton" ).onclick = function () {
-    callPush("L","F","R","B","L","F","R","B");};
-  document.getElementById( "RButton" ).onclick = function () {
-    callPush("R","B","L","F","R","B","L","F");};
-  document.getElementById( "UButton" ).onclick = function () {
-    callPush("B","D","F","D","U","U","U","U");};
-  document.getElementById( "DButton" ).onclick = function () {
-    callPush("F","U","B","U","D","D","D","D");};
-  document.getElementById( "FButton" ).onclick = function () {
-    callPush("U","L","U","R","F","R","B","L");};
-  document.getElementById( "BButton" ).onclick = function () {
-    callPush("D","R","D","L","B","L","F","R");};
-  document.getElementById( "MButton" ).onclick = function () {
-    callPush("M","S","m","s","M","S","m","s");};
-  document.getElementById( "EButton" ).onclick = function () {
-    callPush("S","e","s","e","E","E","E","E");};
-  document.getElementById( "SButton" ).onclick = function () {
-    callPush("e","m","e","m","S","m","s","M");};
-  document.getElementById( "LiButton" ).onclick = function () {
-    callPush("l","f","r","b","l","f","r","b");};
-  document.getElementById( "RiButton" ).onclick = function () {
-    callPush("r","b","l","f","r","b","l","f");};
-  document.getElementById( "UiButton" ).onclick = function () {
-    callPush("b","d","f","d","u","u","u","u");};
-  document.getElementById( "DiButton" ).onclick = function () {
-    callPush("f","u","b","u","d","d","d","d");};
-  document.getElementById( "FiButton" ).onclick = function () {
-    callPush("u","l","u","r","f","r","b","l");};
-  document.getElementById( "BiButton" ).onclick = function () {
-    callPush("d","r","d","l","b","l","f","r");};
-  document.getElementById( "MiButton" ).onclick = function () {
-    callPush("m","s","M","S","m","s","M","S");};
-  document.getElementById( "EiButton" ).onclick = function () {
-    callPush("s","E","S","E","e","e","e","e");};
-  document.getElementById( "SiButton" ).onclick = function () {
-    callPush("E","M","E","M","s","M","S","m");};
   // document.getElementById( "LButton" ).onclick = function () {
   //   callPush("L","F","R","B","L","F","R","B");};
   // document.getElementById( "RButton" ).onclick = function () {
   //   callPush("R","B","L","F","R","B","L","F");};
   // document.getElementById( "UButton" ).onclick = function () {
-  //   callPush("D","D","D","D","U","U","U","U");};
+  //   callPush("B","D","F","D","U","U","U","U");};
   // document.getElementById( "DButton" ).onclick = function () {
-  //   callPush("U","U","U","U","D","D","D","D");};
+  //   callPush("F","U","B","U","D","D","D","D");};
   // document.getElementById( "FButton" ).onclick = function () {
-  //   callPush("B","L","F","R","F","R","B","L");};
+  //   callPush("U","L","U","R","F","R","B","L");};
   // document.getElementById( "BButton" ).onclick = function () {
-  //   callPush("F","R","B","L","B","L","F","R");};
+  //   callPush("D","R","D","L","B","L","F","R");};
   // document.getElementById( "MButton" ).onclick = function () {
   //   callPush("M","S","m","s","M","S","m","s");};
   // document.getElementById( "EButton" ).onclick = function () {
-  //   callPush("e","e","e","e","E","E","E","E");};
+  //   callPush("S","e","s","e","E","E","E","E");};
   // document.getElementById( "SButton" ).onclick = function () {
-  //   callPush("s","M","S","m","S","m","s","M");};
+  //   callPush("e","m","e","m","S","m","s","M");};
   // document.getElementById( "LiButton" ).onclick = function () {
   //   callPush("l","f","r","b","l","f","r","b");};
   // document.getElementById( "RiButton" ).onclick = function () {
   //   callPush("r","b","l","f","r","b","l","f");};
   // document.getElementById( "UiButton" ).onclick = function () {
-  //   callPush("d","d","d","d","u","u","u","u");};
+  //   callPush("b","d","f","d","u","u","u","u");};
   // document.getElementById( "DiButton" ).onclick = function () {
-  //   callPush("u","u","u","u","d","d","d","d");};
+  //   callPush("f","u","b","u","d","d","d","d");};
   // document.getElementById( "FiButton" ).onclick = function () {
-  //   callPush("b","l","f","r","f","r","b","l");};
+  //   callPush("u","l","u","r","f","r","b","l");};
   // document.getElementById( "BiButton" ).onclick = function () {
-  //   callPush("f","r","b","l","b","l","f","r");};
+  //   callPush("d","r","d","l","b","l","f","r");};
   // document.getElementById( "MiButton" ).onclick = function () {
   //   callPush("m","s","M","S","m","s","M","S");};
   // document.getElementById( "EiButton" ).onclick = function () {
-  //   callPush("E","E","E","E","e","e","e","e");};
+  //   callPush("s","E","S","E","e","e","e","e");};
   // document.getElementById( "SiButton" ).onclick = function () {
-  //   callPush("S","m","s","M","s","M","S","m");};
+  //   callPush("E","M","E","M","s","M","S","m");};
+  document.getElementById( "LButton" ).onclick = function () {
+    callPush("L","F","R","B","L","F","R","B");};
+  document.getElementById( "RButton" ).onclick = function () {
+    callPush("R","B","L","F","R","B","L","F");};
+  document.getElementById( "UButton" ).onclick = function () {
+    callPush("D","D","D","D","U","U","U","U");};
+  document.getElementById( "DButton" ).onclick = function () {
+    callPush("U","U","U","U","D","D","D","D");};
+  document.getElementById( "FButton" ).onclick = function () {
+    callPush("B","L","F","R","F","R","B","L");};
+  document.getElementById( "BButton" ).onclick = function () {
+    callPush("F","R","B","L","B","L","F","R");};
+  document.getElementById( "MButton" ).onclick = function () {
+    callPush("M","S","m","s","M","S","m","s");};
+  document.getElementById( "EButton" ).onclick = function () {
+    callPush("e","e","e","e","E","E","E","E");};
+  document.getElementById( "SButton" ).onclick = function () {
+    callPush("s","M","S","m","S","m","s","M");};
+  document.getElementById( "LiButton" ).onclick = function () {
+    callPush("l","f","r","b","l","f","r","b");};
+  document.getElementById( "RiButton" ).onclick = function () {
+    callPush("r","b","l","f","r","b","l","f");};
+  document.getElementById( "UiButton" ).onclick = function () {
+    callPush("d","d","d","d","u","u","u","u");};
+  document.getElementById( "DiButton" ).onclick = function () {
+    callPush("u","u","u","u","d","d","d","d");};
+  document.getElementById( "FiButton" ).onclick = function () {
+    callPush("b","l","f","r","f","r","b","l");};
+  document.getElementById( "BiButton" ).onclick = function () {
+    callPush("f","r","b","l","b","l","f","r");};
+  document.getElementById( "MiButton" ).onclick = function () {
+    callPush("m","s","M","S","m","s","M","S");};
+  document.getElementById( "EiButton" ).onclick = function () {
+    callPush("E","E","E","E","e","e","e","e");};
+  document.getElementById( "SiButton" ).onclick = function () {
+    callPush("S","m","s","M","s","M","S","m");};
   document.getElementById( "randomTurnCount").onkeypress = function(e) {
     if (!e) e = window.event;
     var keyCode = e.keyCode || e.which;
@@ -440,14 +436,13 @@ window.onload = function init() {
   _projectionMatrix = gl.getUniformLocation(program, "projectionMatrix");
   _modelViewMatrix = gl.getUniformLocation(program, "modelViewMatrix");
   
-  fillCubePositions();
+  initCubePosition();
   render();
 }
 
 var innerfaceColor = vec4(0.0, 0.0, 0.0, 0.5);
 // Set inner face colors
 function SetinnerColor(x,y,z) {
-  // Restore all colors to vertexColors
   for (i = 0; i < vertexColors.length; i++) {
     vertexColors[i] = startingVertexColors[i];
   }
@@ -505,7 +500,7 @@ function checkSolve() {
 // cubePosition[x][y][z][2] is cubie's z position
 // cubePosition[x][y][z][3] is reference axis
 // cubePosition[x][y][z][4] is cubie's rotation matrix
-function fillCubePositions() {
+function initCubePosition() {
   for (i = -1; i < 2; i++) {
     for (j = -1; j < 2; j++) {
       for (k = -1; k < 2; k++) {
@@ -548,7 +543,7 @@ function callRotation(face) {
     clearInterval(interval);
     isAnimating = false;
     currentAngle = 0;
-    turnFinished(face);
+    setCubePosition(face);
     if (checkSolve()) {
       document.getElementById("FinishedField").innerHTML = "CUBE COMPLETE!";
     } else {
@@ -558,7 +553,7 @@ function callRotation(face) {
 }
 
 // Set the new matrix based on the finished position for each cubie
-function turnFinished(face) {
+function setCubePosition(face) {
   var x, y, z, first, second, third, temp;
   for (x = -1; x < 2; x++) {
     for (y = -1; y < 2; y++) {
@@ -856,7 +851,6 @@ function render() {
 
   gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
   
-  // Set the camera position
   eye = vec3(cameraRadius*Math.sin(PHI)*Math.sin(THETA),
     cameraRadius*Math.cos(PHI),
     cameraRadius*Math.sin(PHI)*Math.cos(THETA));

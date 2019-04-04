@@ -44,7 +44,7 @@
   <h2>Usage</h2>
   <p>- Click buttons below to select each face and the drop-down menu to select a direction. left click the mouse and hold to rotate the cube. Scroll down/up to zoom in/ out. Refresh the page if you want to load a different cube status file.</p>
   <p>- The face is defined intuitively from the perspective looking at the cube. And the direction is from the perspective looking at each face.</p>
-  <p>- However, the white/black centered faces are always top/bottom faces (It might not be intuitive in some cases). The center column, center row, and center face’s rotating directions are defined the same as the left, bottom and front faces, respectively.</p>>
+  <p>- However, the white/black centered faces are always top/bottom faces (It might not be intuitive in some cases). The center column, center row, and center face’s rotating directions are defined the same as the left, bottom and front faces, respectively.</p>
   <div class="btn-group">
     <button id = "Leftface" type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
     Left <span class="caret"></span></button>
@@ -143,20 +143,19 @@
       Enter number of random turns (range 0-9999): <input style="width: 50px" type="text" id="randomTurnCount"><br>
     </form>
     <br/>
-  <button id= "RandomButton" style="position: absolute;right: 0px; top: 50px;width:120px; height:50px;font-size: 15px;">Random</button>
+  <button id= "RandomButton" type="button" class="btn btn-primary" style="position: absolute;right: 25px; top: 50px;width:120px; height:50px;font-size: 15px;">Random</button>
   </div>
-  <button id= "LoadButton" style="position: absolute; left: 720px; top: 450px;width:120px; height:50px;font-size: 15px;">Load</button>
-  <button id= "SaveButton" style="position: absolute; left: 900px; top: 450px;width:120px; height:50px;font-size: 15px;">Save</button>
+  <button id= "LoadButton" type="button" class="btn btn-primary" style="position: absolute; left: 720px; top: 450px;width:120px; height:50px;font-size: 15px;">Load</button>
+  <button id= "SaveButton" type="button" class="btn btn-primary" style="position: absolute; left: 900px; top: 450px;width:120px; height:50px;font-size: 15px;">Save</button>
   <a download="CubeStatus.txt" href="" id="downloadlink" style="position: absolute; left : 620px; top:600px;"></a>
   <div id = "fileselect" style= "position:absolute;top: 520px; left: 720px;">
   <input type="file" id="files" name="files[]"/>
   <output id="list"></output>
   <script>
     function handleFileSelect(evt) {
-    var files = evt.target.files; // FileList object
+    var files = evt.target.files;
       var reader = new FileReader();
       f = files[0];
-      // Closure to capture the file information.
       reader.onload = (function(theFile) {
         fileLoaded = true;
         return function(e) {
@@ -175,7 +174,6 @@
         }
       })(f);
 
-      // Read in the image file as a data URL.
       reader.readAsText(f);
     }
 
