@@ -55,31 +55,31 @@ var vertices = [
 var startingVertexColors = [
   // colors corresponding to the 24 individual vertices
   
-  // Back face blue
+  // Back face gr
   vec4( 0.0, 0.0, 1.0, 1.0 ),
   vec4( 0.0, 0.0, 1.0, 1.0 ),
   vec4( 0.0, 0.0, 1.0, 1.0 ),
   vec4( 0.0, 0.0, 1.0, 1.0 ),
 
-  // Front face green
+  // Front face bla
   vec4( 0.0, 1.0, 0.0, 1.0 ), 
   vec4( 0.0, 1.0, 0.0, 1.0 ),
   vec4( 0.0, 1.0, 0.0, 1.0 ), 
   vec4( 0.0, 1.0, 0.0, 1.0 ),
   
-  // Left face red
+  // Left face wht
   vec4( 1.0, 0.0, 0.0, 1.0 ),
   vec4( 1.0, 0.0, 0.0, 1.0 ),
   vec4( 1.0, 0.0, 0.0, 1.0 ),
   vec4( 1.0, 0.0, 0.0, 1.0 ),
   
-  // Right face yellow
+  // Right face blu
   vec4( 1.0, 1.0, 0.0, 1.0 ),
   vec4( 1.0, 1.0, 0.0, 1.0 ),
   vec4( 1.0, 1.0, 0.0, 1.0 ),
   vec4( 1.0, 1.0, 0.0, 1.0 ),
   
-  // Bottom face white
+  // Bottom face yel
   vec4( 1.0, 1.0, 1.0, 1.0 ),
   vec4( 1.0, 1.0, 1.0, 1.0 ),
   vec4( 1.0, 1.0, 1.0, 1.0 ),
@@ -93,31 +93,31 @@ var startingVertexColors = [
 ];
 
 var vertexColors = [
-   // Back face blue
+   // Back face gr
   vec4( 0.0, 0.0, 1.0, 1.0 ),
   vec4( 0.0, 0.0, 1.0, 1.0 ),
   vec4( 0.0, 0.0, 1.0, 1.0 ),
   vec4( 0.0, 0.0, 1.0, 1.0 ),
 
-  // Front face green
+  // Front face bla
   vec4( 0.0, 1.0, 0.0, 1.0 ), 
   vec4( 0.0, 1.0, 0.0, 1.0 ),
   vec4( 0.0, 1.0, 0.0, 1.0 ), 
   vec4( 0.0, 1.0, 0.0, 1.0 ),
   
-  // Left face red
+  // Left face wht
   vec4( 1.0, 0.0, 0.0, 1.0 ),
   vec4( 1.0, 0.0, 0.0, 1.0 ),
   vec4( 1.0, 0.0, 0.0, 1.0 ),
   vec4( 1.0, 0.0, 0.0, 1.0 ),
   
-  // Right face yellow
+  // Right face blu
   vec4( 1.0, 1.0, 0.0, 1.0 ),
   vec4( 1.0, 1.0, 0.0, 1.0 ),
   vec4( 1.0, 1.0, 0.0, 1.0 ),
   vec4( 1.0, 1.0, 0.0, 1.0 ),
   
-  // Bottom face white
+  // Bottom face yel
   vec4( 1.0, 1.0, 1.0, 1.0 ),
   vec4( 1.0, 1.0, 1.0, 1.0 ),
   vec4( 1.0, 1.0, 1.0, 1.0 ),
@@ -169,24 +169,24 @@ function degrees(radians) {
 }
 
 var originalMapping = {
-  "orange": "L",
-  "white": "R",
-  "green": "U",
-  "red": "D",
-  "blue": "F",
-  "yellow": "B",
+  "rd": "L",
+  "yel": "R",
+  "bla": "U",
+  "wht": "D",
+  "gr": "F",
+  "blu": "B",
   "M": "M",
   "E": "E",
   "S": "S"
 }
 
 var mappingColor = {
-  "L": "orange",
-  "R": "white",
-  "U": "green",
-  "D": "red",
-  "F": "blue",
-  "B": "yellow",
+  "L": "rd",
+  "R": "yel",
+  "U": "bla",
+  "D": "wht",
+  "F": "gr",
+  "B": "blu",
   "M": "M",
   "E": "E",
   "S": "S"
@@ -201,208 +201,214 @@ function callPush(strategy) {
     }
     var theta = degrees(THETA)%360;
     var phi = degrees(PHI)%360;
-    var front = "blue", top = "green", right = "white";
+    var front = "gr", top = "bla", right = "yel";
     if (up[1] == 1) {
       if (phi < -315 || (phi >= -45 && phi < 45) || phi >= 315) {
-        front = "green";
+        front = "bla";
         if (theta < -315 || (theta >= -45 && theta < 45) || theta >= 315) {
-          (phi >=0 && phi <180) || (phi >=-360 && phi <-180) ? top = "yellow": top ="blue";
-          top=="yellow" ? right = "white": right = "orange";
+          (phi >=0 && phi <180) || (phi >=-360 && phi <-180) ? top = "blu": top ="gr";
+          top=="blu" ? right = "yel": right = "rd";
         } else if ((theta >= -135 && theta < -45) || (theta >= 225 && theta < 315)) {
-          (phi >=0 && phi <180) || (phi >=-360 && phi <-180) ? top = "white": top ="orange";
-          top=="white" ? right = "blue": right = "yellow";
+          (phi >=0 && phi <180) || (phi >=-360 && phi <-180) ? top = "yel": top ="rd";
+          top=="yel" ? right = "gr": right = "blu";
         } else if ((theta >= -225 && theta < -135) || (theta >=135 && theta < 225)) {
-          (phi >=0 && phi <180) || (phi >=-360 && phi <-180) ? top = "blue": top= "yellow";
-          top=="yellow" ? right = "white": right = "orange";
+          (phi >=0 && phi <180) || (phi >=-360 && phi <-180) ? top = "gr": top= "blu";
+          top=="blu" ? right = "yel": right = "rd";
         } else if ((theta >= -315 && theta < -225) || (theta >= 45 && theta < 135)) {
-          (phi >=0 && phi <180) || (phi >=-360 && phi <-180) ? top = "orange": top ="white";
-          top=="white" ? right = "blue": right = "yellow";
+          (phi >=0 && phi <180) || (phi >=-360 && phi <-180) ? top = "rd": top ="yel";
+          top=="yel" ? right = "gr": right = "blu";
         }
       } else if ((phi >= -225 && phi < -135) || (phi >=135 && phi < 225)){
-        front = "red";
+        front = "wht";
         if (theta < -315 || (theta >= -45 && theta < 45) || theta >= 315) {
-          (phi >=0 && phi <180) || (phi >=-360 && phi <-180) ? top = "blue" : top = "yellow";
-          top=="yellow" ? right = "orange": right = "white";
+          (phi >=0 && phi <180) || (phi >=-360 && phi <-180) ? top = "gr" : top = "blu";
+          top=="blu" ? right = "rd": right = "yel";
         } else if ((theta >= -135 && theta < -45) || (theta >= 225 && theta < 315)) {
-          (phi >=0 && phi <180) || (phi >=-360 && phi <-180) ? top = "orange": top = "white";
-          top=="white" ? right = "yellow": right = "blue";
+          (phi >=0 && phi <180) || (phi >=-360 && phi <-180) ? top = "rd": top = "yel";
+          top=="yel" ? right = "blu": right = "gr";
         } else if ((theta >= -225 && theta < -135) || (theta >=135 && theta < 225)) {
-          (phi >=0 && phi <180) || (phi >=-360 && phi <-180) ? top = "yellow": top = "blue";
-          top=="yellow" ? right = "orange": right = "white";
+          (phi >=0 && phi <180) || (phi >=-360 && phi <-180) ? top = "blu": top = "gr";
+          top=="blu" ? right = "rd": right = "yel";
         } else if ((theta >= -315 && theta < -225) || (theta >= 45 && theta < 135)) {
-          (phi >=0 && phi <180) || (phi >=-360 && phi <-180) ? top = "white": top = "orange";
-          top=="white" ? right = "yellow": right = "blue";
+          (phi >=0 && phi <180) || (phi >=-360 && phi <-180) ? top = "yel": top = "rd";
+          top=="yel" ? right = "blu": right = "gr";
         }
       } else {
-        // console.log("side:\n");
         if ((phi >=0 && phi <180) || (phi >=-360 && phi <-180)) {
           if (theta < -315 || (theta >= -45 && theta < 45) || theta >= 315) {
-            front = "blue";
-            top = "green";
-            right = "white";
+            front = "gr";
+            top = "bla";
+            right = "yel";
           } else if ((theta >= -135 && theta < -45) || (theta >= 225 && theta < 315)) {
-            front = "orange";
-            top = "green";
-            right = "blue";
+            front = "rd";
+            top = "bla";
+            right = "gr";
           } else if ((theta >= -225 && theta < -135) || (theta >=135 && theta < 225)) {
-            front = "yellow";
-            top = "green";
-            right = "orange";
+            front = "blu";
+            top = "bla";
+            right = "rd";
           } else if ((theta >= -315 && theta < -225) || (theta >= 45 && theta < 135)) {
-            front = "white";
-            top = "green";
-            right = "yellow";
+            front = "yel";
+            top = "bla";
+            right = "blu";
           }
         } else {
           if (theta < -315 || (theta >= -45 && theta < 45) || theta >= 315) {
-            front = "yellow";
-            top = "green";
-            right = "orange";
+            front = "blu";
+            top = "bla";
+            right = "rd";
           } else if ((theta >= -135 && theta < -45) || (theta >= 225 && theta < 315)) {
-            front = "white";
-            top = "green";
-            right = "yellow";
+            front = "yel";
+            top = "bla";
+            right = "blu";
           } else if ((theta >= -225 && theta < -135) || (theta >=135 && theta < 225)) {
-            front = "blue";
-            top = "green";
-            right = "white";
+            front = "gr";
+            top = "bla";
+            right = "yel";
           } else if ((theta >= -315 && theta < -225) || (theta >= 45 && theta < 135)) {
-            front = "orange";
-            top = "green";
-            right = "blue";
+            front = "rd";
+            top = "bla";
+            right = "gr";
           }
         }
       }
     } else {
       if (phi < -315 || (phi >= -45 && phi < 45) || phi >= 315) {
-        front = "green";
+        front = "bla";
         if (theta < -315 || (theta >= -45 && theta < 45) || theta >= 315) {
-          (phi >=0 && phi <180) || (phi >=-360 && phi <-180) ? top = "blue" : top = "yellow";
-          top=="yellow" ? right = "white": right = "orange";
+          (phi >=0 && phi <180) || (phi >=-360 && phi <-180) ? top = "gr" : top = "blu";
+          top=="blu" ? right = "yel": right = "rd";
         } else if ((theta >= -135 && theta < -45) || (theta >= 225 && theta < 315)) {
-          (phi >=0 && phi <180) || (phi >=-360 && phi <-180) ? top = "orange": top = "white";
-          top=="white" ? right = "blue": right = "yellow";
+          (phi >=0 && phi <180) || (phi >=-360 && phi <-180) ? top = "rd": top = "yel";
+          top=="yel" ? right = "gr": right = "blu";
         } else if ((theta >= -225 && theta < -135) || (theta >=135 && theta < 225)) {
-          (phi >=0 && phi <180) || (phi >=-360 && phi <-180) ? top = "yellow": top = "blue";
-          top=="yellow" ? right = "white": right = "orange";
+          (phi >=0 && phi <180) || (phi >=-360 && phi <-180) ? top = "blu": top = "gr";
+          top=="blu" ? right = "yel": right = "rd";
         } else if ((theta >= -315 && theta < -225) || (theta >= 45 && theta < 135)) {
-          (phi >=0 && phi <180) || (phi >=-360 && phi <-180) ? top = "white": top = "orange";
-          top=="white" ? right = "blue": right = "yellow";
+          (phi >=0 && phi <180) || (phi >=-360 && phi <-180) ? top = "yel": top = "rd";
+          top=="yel" ? right = "gr": right = "blu";
         }
       } else if ((phi >= -225 && phi < -135) || (phi >=135 && phi < 225)){
-        front = "red";
+        front = "wht";
         if (theta < -315 || (theta >= -45 && theta < 45) || theta >= 315) {
-          (phi >=0 && phi <180) || (phi >=-360 && phi <-180) ? top = "yellow": top ="blue";
-          top=="yellow" ? right = "orange": right = "white";
+          (phi >=0 && phi <180) || (phi >=-360 && phi <-180) ? top = "blu": top ="gr";
+          top=="blu" ? right = "rd": right = "yel";
         } else if ((theta >= -135 && theta < -45) || (theta >= 225 && theta < 315)) {
-          (phi >=0 && phi <180) || (phi >=-360 && phi <-180) ? top = "white": top ="orange";
-          top=="white" ? right = "yellow": right = "blue";
+          (phi >=0 && phi <180) || (phi >=-360 && phi <-180) ? top = "yel": top ="rd";
+          top=="yel" ? right = "blu": right = "gr";
         } else if ((theta >= -225 && theta < -135) || (theta >=135 && theta < 225)) {
-          (phi >=0 && phi <180) || (phi >=-360 && phi <-180) ? top = "blue": top= "yellow";
-          top=="yellow" ? right = "orange": right = "white";
+          (phi >=0 && phi <180) || (phi >=-360 && phi <-180) ? top = "gr": top= "blu";
+          top=="blu" ? right = "rd": right = "yel";
         } else if ((theta >= -315 && theta < -225) || (theta >= 45 && theta < 135)) {
-          (phi >=0 && phi <180) || (phi >=-360 && phi <-180) ? top = "orange": top ="white";
-          top=="white" ? right = "yellow": right = "blue";
+          (phi >=0 && phi <180) || (phi >=-360 && phi <-180) ? top = "rd": top ="yel";
+          top=="yel" ? right = "blu": right = "gr";
         }
       } else {
         // console.log("side:\n");
         if ((phi >=0 && phi <180) || (phi >=-360 && phi <-180)) {
           if (theta < -315 || (theta >= -45 && theta < 45) || theta >= 315) {
-            front = "blue";
-            top = "red";
-            right = "orange";
+            front = "gr";
+            top = "wht";
+            right = "rd";
           } else if ((theta >= -135 && theta < -45) || (theta >= 225 && theta < 315)) {
-            front = "orange";
-            top = "red";
-            right = "yellow";
+            front = "rd";
+            top = "wht";
+            right = "blu";
           } else if ((theta >= -225 && theta < -135) || (theta >=135 && theta < 225)) {
-            front = "yellow";
-            top = "red";
-            right = "white";
+            front = "blu";
+            top = "wht";
+            right = "yel";
           } else if ((theta >= -315 && theta < -225) || (theta >= 45 && theta < 135)) {
-            front = "white";
-            top = "red";
-            right = "blue";
+            front = "yel";
+            top = "wht";
+            right = "gr";
           }
         } else {
           if (theta < -315 || (theta >= -45 && theta < 45) || theta >= 315) {
-            front = "yellow";
-            top = "red";
-            right = "white";
+            front = "blu";
+            top = "wht";
+            right = "yel";
           } else if ((theta >= -135 && theta < -45) || (theta >= 225 && theta < 315)) {
-            front = "white";
-            top = "red";
-            right = "blue";
+            front = "yel";
+            top = "wht";
+            right = "gr";
           } else if ((theta >= -225 && theta < -135) || (theta >=135 && theta < 225)) {
-            front = "blue";
-            top = "red";
-            right = "orange";
+            front = "gr";
+            top = "wht";
+            right = "rd";
           } else if ((theta >= -315 && theta < -225) || (theta >= 45 && theta < 135)) {
-            front = "orange";
-            top = "red";
-            right = "yellow";
+            front = "rd";
+            top = "wht";
+            right = "blu";
           }
         }
       }
     }
 
     makeRestFaces(front, top, right);
-    // console.log(front, top, right);
-    // console.log("Theta", theta, "Phi:", phi, up);
 
-    if (top=="green" || top =="red") {
-      if (front == "blue" || front == "yellow"){
+    if (top=="bla" || top =="wht") {
+      if (front == "gr" || front == "blu"){
         mappingColor["M"] = "M"; 
         mappingColor["S"] = "S"; 
         mappingColor["E"] = "E";
-        if (strategy=="M"&&(top=="red"&&front!="yellow" || top!="red"&&front=="yellow")){
+        if (strategy=="M"&&(top=="wht"&&front!="blu" || top!="wht"&&front=="blu")){
           direction == 1? direction=0:direction=1;
         }
-        if (strategy=="E"&&top=="red"){
+        if (strategy=="E"&&top=="wht"){
           direction == 1? direction=0:direction=1;
         }
-        if (strategy=="S"&&front=="yellow"){
+        if (strategy=="S"&&front=="blu"){
           direction == 1? direction=0:direction=1;
         }
-      } else if (front == "orange" || front == "white") {
+      } else if (front == "rd" || front == "yel") {
         mappingColor["M"] = "S";  
         mappingColor["S"] = "M"; 
         mappingColor["E"] = "E";
-        if (strategy=="M"&&(top=="red"&&front!="orange" || top!="red"&&front=="orange")){
+        if (strategy=="M"&&(top=="wht"&&front!="rd" || top!="wht"&&front=="rd")){
           direction == 1? direction=0:direction=1;
         }
-        if (strategy=="E"&&top=="red"){
+        if (strategy=="E"&&top=="wht"){
           direction == 1? direction=0:direction=1;
         }
-        if (strategy=="S"&&front=="white"){
+        if (strategy=="S"&&front=="yel"){
           direction == 1? direction=0:direction=1;
         }
       } 
-    } else if (front == "red" || front =="green") {
-      if (top == "blue" || top =="yellow") {
+    } else if (front == "wht" || front =="bla") {
+      if (top == "gr" || top =="blu") {
         mappingColor["S"] = "E"; 
         mappingColor["E"] = "S"; 
         mappingColor["M"] = "M";
-        if (strategy=="M"&&(top=="blue"&&front=="green")||(top=="yellow"&&front=="red")){
+        if (strategy=="M"&&(top=="gr"&&front=="bla")||(top=="blu"&&front=="wht")){
           direction == 1? direction=0:direction=1;
         }
-        if (strategy=="E"&&(top=="blue"&&front=="green")||(top=="yellow"&&front=="red")){
+        if (strategy=="E"&&(top=="gr"&&front=="bla")||(top=="blu"&&front=="wht")){
           direction == 1? direction=0:direction=1;
         }
-        if (strategy=="S"&&front=="green"){
+        if (strategy=="S"&&front=="bla"){
           direction == 1? direction=0:direction=1;
         }
-      } else if (top == "orange" || top == "white") {
+      } else if (top == "rd" || top == "yel") {
+        //console.log("I am here!");
         mappingColor["S"] = "E";  
         mappingColor["E"] = "M"; 
         mappingColor["M"] = "S";
-        if (strategy=="M"&&(top=="white"&&front=="green")||(top=="orange"&&front=="red")){
+        if(strategy == "U" || strategy == "D"){
+          if (direction == 0){
+            direction = 1;
+          }
+          else if(direction == 1){
+            direction = 0;
+          }            
+        }
+        if (strategy=="M"&&(top=="yel"&&front=="bla")||(top=="rd"&&front=="wht")){
           direction == 1? direction=0:direction=1;
         }
-        if (strategy=="E"&&(top=="orange"&&front=="green")||(top=="white"&&front=="red")){
+        if (strategy=="E"&&(top=="rd"&&front=="bla")||(top=="yel"&&front=="wht")){
           direction == 1? direction=0:direction=1;
         }
-        if (strategy=="S"&&front=="red"){
+        if (strategy=="S"&&front=="wht"){
           direction == 1? direction=0:direction=1;
         }
       } 
@@ -413,7 +419,7 @@ function callPush(strategy) {
     if (direction==0) {
       newAction = newAction.toLowerCase();
     }
-    // console.log(strategy, newAction);
+    //console.log(direction, newAction);
     animationQueue.push(newAction);
   } else {
     console.log("queue full!");
@@ -436,18 +442,18 @@ function makeRestFaces(f,t,r) {
 }
 
 function oppositeFace(face) {
-  if (face=="orange"){
-    return "white";
-  } else if (face == "white") {
-    return "orange";
-  } else if (face == "blue") {
-    return "yellow";
-  } else if (face == "yellow") {
-    return "blue";
-  } else if (face == "red") {
-    return "green";
-  } else if (face == "green") {
-    return "red";
+  if (face=="rd"){
+    return "yel";
+  } else if (face == "yel") {
+    return "rd";
+  } else if (face == "gr") {
+    return "blu";
+  } else if (face == "blu") {
+    return "gr";
+  } else if (face == "wht") {
+    return "bla";
+  } else if (face == "bla") {
+    return "wht";
   }
 }
 
