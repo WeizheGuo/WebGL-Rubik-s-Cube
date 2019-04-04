@@ -168,35 +168,289 @@ function degrees(radians) {
   return radians / Math.PI * 180.0;
 }
 
-function callPush(a,b,c,d,e,f,g,h) {
+var originalMapping = {
+  "orange": "L",
+  "white": "R",
+  "green": "U",
+  "red": "D",
+  "blue": "F",
+  "yellow": "B",
+  "M": "M",
+  "E": "E",
+  "S": "S"
+}
+
+var mappingColor = {
+  "L": "orange",
+  "R": "white",
+  "U": "green",
+  "D": "red",
+  "F": "blue",
+  "B": "yellow",
+  "M": "M",
+  "E": "E",
+  "S": "S"
+}
+
+function callPush(strategy) {
   if(animationQueue.length < 9999) {
+    var direction = 1;
+    if (strategy == strategy.toLowerCase()) {
+      strategy = strategy.toUpperCase();
+      direction = 0;
+    }
     var theta = degrees(THETA)%360;
     var phi = degrees(PHI)%360;
-    if ((phi >= -180 && phi < 0) || (phi >= 180 && phi < 360)) {
-      if (theta < -315 || (theta >= -45 && theta < 45) || theta >= 315) {
-        animationQueue.push(a);
-      } else if ((theta >= -315 && theta < -225) || (theta >= 45 && theta < 135)) {
-        animationQueue.push(b);
-      } else if ((theta >= -225 && theta < -135) || (theta >=135 && theta < 225)) {
-        animationQueue.push(c);
-      } else if ((theta >= -135 && theta < -45) || (theta >= 215 && theta < 315)) {
-        animationQueue.push(d);
-      } 
+    var front = "blue", top = "green", right = "white";
+    if (up[1] == 1) {
+      if (phi < -315 || (phi >= -45 && phi < 45) || phi >= 315) {
+        front = "green";
+        if (theta < -315 || (theta >= -45 && theta < 45) || theta >= 315) {
+          (phi >=0 && phi <180) || (phi >=-360 && phi <-180) ? top = "yellow": top ="blue";
+          top=="yellow" ? right = "white": right = "orange";
+        } else if ((theta >= -135 && theta < -45) || (theta >= 225 && theta < 315)) {
+          (phi >=0 && phi <180) || (phi >=-360 && phi <-180) ? top = "white": top ="orange";
+          top=="white" ? right = "blue": right = "yellow";
+        } else if ((theta >= -225 && theta < -135) || (theta >=135 && theta < 225)) {
+          (phi >=0 && phi <180) || (phi >=-360 && phi <-180) ? top = "blue": top= "yellow";
+          top=="yellow" ? right = "white": right = "orange";
+        } else if ((theta >= -315 && theta < -225) || (theta >= 45 && theta < 135)) {
+          (phi >=0 && phi <180) || (phi >=-360 && phi <-180) ? top = "orange": top ="white";
+          top=="white" ? right = "blue": right = "yellow";
+        }
+      } else if ((phi >= -225 && phi < -135) || (phi >=135 && phi < 225)){
+        front = "red";
+        if (theta < -315 || (theta >= -45 && theta < 45) || theta >= 315) {
+          (phi >=0 && phi <180) || (phi >=-360 && phi <-180) ? top = "blue" : top = "yellow";
+          top=="yellow" ? right = "orange": right = "white";
+        } else if ((theta >= -135 && theta < -45) || (theta >= 225 && theta < 315)) {
+          (phi >=0 && phi <180) || (phi >=-360 && phi <-180) ? top = "orange": top = "white";
+          top=="white" ? right = "yellow": right = "blue";
+        } else if ((theta >= -225 && theta < -135) || (theta >=135 && theta < 225)) {
+          (phi >=0 && phi <180) || (phi >=-360 && phi <-180) ? top = "yellow": top = "blue";
+          top=="yellow" ? right = "orange": right = "white";
+        } else if ((theta >= -315 && theta < -225) || (theta >= 45 && theta < 135)) {
+          (phi >=0 && phi <180) || (phi >=-360 && phi <-180) ? top = "white": top = "orange";
+          top=="white" ? right = "yellow": right = "blue";
+        }
+      } else {
+        // console.log("side:\n");
+        if ((phi >=0 && phi <180) || (phi >=-360 && phi <-180)) {
+          if (theta < -315 || (theta >= -45 && theta < 45) || theta >= 315) {
+            front = "blue";
+            top = "green";
+            right = "white";
+          } else if ((theta >= -135 && theta < -45) || (theta >= 225 && theta < 315)) {
+            front = "orange";
+            top = "green";
+            right = "blue";
+          } else if ((theta >= -225 && theta < -135) || (theta >=135 && theta < 225)) {
+            front = "yellow";
+            top = "green";
+            right = "orange";
+          } else if ((theta >= -315 && theta < -225) || (theta >= 45 && theta < 135)) {
+            front = "white";
+            top = "green";
+            right = "yellow";
+          }
+        } else {
+          if (theta < -315 || (theta >= -45 && theta < 45) || theta >= 315) {
+            front = "yellow";
+            top = "green";
+            right = "orange";
+          } else if ((theta >= -135 && theta < -45) || (theta >= 225 && theta < 315)) {
+            front = "white";
+            top = "green";
+            right = "yellow";
+          } else if ((theta >= -225 && theta < -135) || (theta >=135 && theta < 225)) {
+            front = "blue";
+            top = "green";
+            right = "white";
+          } else if ((theta >= -315 && theta < -225) || (theta >= 45 && theta < 135)) {
+            front = "orange";
+            top = "green";
+            right = "blue";
+          }
+        }
+      }
     } else {
-      if (theta < -315 || (theta >= -45 && theta < 45) || theta >= 315) {
-        animationQueue.push(e);
-      } else if ((theta >= -315 && theta < -225) || (theta >= 45 && theta < 135)) {
-        animationQueue.push(f);
-      } else if ((theta >= -225 && theta < -135) || (theta >=135 && theta < 225)) {
-        animationQueue.push(g);
-      } else if ((theta >= -135 && theta < -45) || (theta >= 215 && theta < 315)) {
-        animationQueue.push(h);
+      if (phi < -315 || (phi >= -45 && phi < 45) || phi >= 315) {
+        front = "green";
+        if (theta < -315 || (theta >= -45 && theta < 45) || theta >= 315) {
+          (phi >=0 && phi <180) || (phi >=-360 && phi <-180) ? top = "blue" : top = "yellow";
+          top=="yellow" ? right = "white": right = "orange";
+        } else if ((theta >= -135 && theta < -45) || (theta >= 225 && theta < 315)) {
+          (phi >=0 && phi <180) || (phi >=-360 && phi <-180) ? top = "orange": top = "white";
+          top=="white" ? right = "blue": right = "yellow";
+        } else if ((theta >= -225 && theta < -135) || (theta >=135 && theta < 225)) {
+          (phi >=0 && phi <180) || (phi >=-360 && phi <-180) ? top = "yellow": top = "blue";
+          top=="yellow" ? right = "white": right = "orange";
+        } else if ((theta >= -315 && theta < -225) || (theta >= 45 && theta < 135)) {
+          (phi >=0 && phi <180) || (phi >=-360 && phi <-180) ? top = "white": top = "orange";
+          top=="white" ? right = "blue": right = "yellow";
+        }
+      } else if ((phi >= -225 && phi < -135) || (phi >=135 && phi < 225)){
+        front = "red";
+        if (theta < -315 || (theta >= -45 && theta < 45) || theta >= 315) {
+          (phi >=0 && phi <180) || (phi >=-360 && phi <-180) ? top = "yellow": top ="blue";
+          top=="yellow" ? right = "orange": right = "white";
+        } else if ((theta >= -135 && theta < -45) || (theta >= 225 && theta < 315)) {
+          (phi >=0 && phi <180) || (phi >=-360 && phi <-180) ? top = "white": top ="orange";
+          top=="white" ? right = "yellow": right = "blue";
+        } else if ((theta >= -225 && theta < -135) || (theta >=135 && theta < 225)) {
+          (phi >=0 && phi <180) || (phi >=-360 && phi <-180) ? top = "blue": top= "yellow";
+          top=="yellow" ? right = "orange": right = "white";
+        } else if ((theta >= -315 && theta < -225) || (theta >= 45 && theta < 135)) {
+          (phi >=0 && phi <180) || (phi >=-360 && phi <-180) ? top = "orange": top ="white";
+          top=="white" ? right = "yellow": right = "blue";
+        }
+      } else {
+        // console.log("side:\n");
+        if ((phi >=0 && phi <180) || (phi >=-360 && phi <-180)) {
+          if (theta < -315 || (theta >= -45 && theta < 45) || theta >= 315) {
+            front = "blue";
+            top = "red";
+            right = "orange";
+          } else if ((theta >= -135 && theta < -45) || (theta >= 225 && theta < 315)) {
+            front = "orange";
+            top = "red";
+            right = "yellow";
+          } else if ((theta >= -225 && theta < -135) || (theta >=135 && theta < 225)) {
+            front = "yellow";
+            top = "red";
+            right = "white";
+          } else if ((theta >= -315 && theta < -225) || (theta >= 45 && theta < 135)) {
+            front = "white";
+            top = "red";
+            right = "blue";
+          }
+        } else {
+          if (theta < -315 || (theta >= -45 && theta < 45) || theta >= 315) {
+            front = "yellow";
+            top = "red";
+            right = "white";
+          } else if ((theta >= -135 && theta < -45) || (theta >= 225 && theta < 315)) {
+            front = "white";
+            top = "red";
+            right = "blue";
+          } else if ((theta >= -225 && theta < -135) || (theta >=135 && theta < 225)) {
+            front = "blue";
+            top = "red";
+            right = "orange";
+          } else if ((theta >= -315 && theta < -225) || (theta >= 45 && theta < 135)) {
+            front = "orange";
+            top = "red";
+            right = "yellow";
+          }
+        }
       }
     }
+
+    makeRestFaces(front, top, right);
+    // console.log(front, top, right);
+    // console.log("Theta", theta, "Phi:", phi, up);
+
+    if (top=="green" || top =="red") {
+      if (front == "blue" || front == "yellow"){
+        mappingColor["M"] = "M"; 
+        mappingColor["S"] = "S"; 
+        mappingColor["E"] = "E";
+        if (strategy=="M"&&(top=="red"&&front!="yellow" || top!="red"&&front=="yellow")){
+          direction == 1? direction=0:direction=1;
+        }
+        if (strategy=="E"&&top=="red"){
+          direction == 1? direction=0:direction=1;
+        }
+        if (strategy=="S"&&front=="yellow"){
+          direction == 1? direction=0:direction=1;
+        }
+      } else if (front == "orange" || front == "white") {
+        mappingColor["M"] = "S";  
+        mappingColor["S"] = "M"; 
+        mappingColor["E"] = "E";
+        if (strategy=="M"&&(top=="red"&&front!="orange" || top!="red"&&front=="orange")){
+          direction == 1? direction=0:direction=1;
+        }
+        if (strategy=="E"&&top=="red"){
+          direction == 1? direction=0:direction=1;
+        }
+        if (strategy=="S"&&front=="white"){
+          direction == 1? direction=0:direction=1;
+        }
+      } 
+    } else if (front == "red" || front =="green") {
+      if (top == "blue" || top =="yellow") {
+        mappingColor["S"] = "E"; 
+        mappingColor["E"] = "S"; 
+        mappingColor["M"] = "M";
+        if (strategy=="M"&&(top=="blue"&&front=="green")||(top=="yellow"&&front=="red")){
+          direction == 1? direction=0:direction=1;
+        }
+        if (strategy=="E"&&(top=="blue"&&front=="green")||(top=="yellow"&&front=="red")){
+          direction == 1? direction=0:direction=1;
+        }
+        if (strategy=="S"&&front=="green"){
+          direction == 1? direction=0:direction=1;
+        }
+      } else if (top == "orange" || top == "white") {
+        mappingColor["S"] = "E";  
+        mappingColor["E"] = "M"; 
+        mappingColor["M"] = "S";
+        if (strategy=="M"&&(top=="white"&&front=="green")||(top=="orange"&&front=="red")){
+          direction == 1? direction=0:direction=1;
+        }
+        if (strategy=="E"&&(top=="orange"&&front=="green")||(top=="white"&&front=="red")){
+          direction == 1? direction=0:direction=1;
+        }
+        if (strategy=="S"&&front=="red"){
+          direction == 1? direction=0:direction=1;
+        }
+      } 
+    }
+    
+    colorIndex = mappingColor[strategy];
+    newAction = originalMapping[colorIndex];
+    if (direction==0) {
+      newAction = newAction.toLowerCase();
+    }
+    // console.log(strategy, newAction);
+    animationQueue.push(newAction);
   } else {
-    console.log("Too many actions in the animation queue. Cannot add more actions");
+    console.log("queue full!");
   }
 }
+
+function makeRestFaces(f,t,r) {
+    b = oppositeFace(f);
+    d = oppositeFace(t);
+    l = oppositeFace(r);
+
+    mappingColor["F"] = f;
+    mappingColor["U"] = t;
+    mappingColor["R"] = r;
+    mappingColor["B"] = b;
+    mappingColor["D"] = d;
+    mappingColor["L"] = l;
+    // console.log(mappingColor);
+
+}
+
+function oppositeFace(face) {
+  if (face=="orange"){
+    return "white";
+  } else if (face == "white") {
+    return "orange";
+  } else if (face == "blue") {
+    return "yellow";
+  } else if (face == "yellow") {
+    return "blue";
+  } else if (face == "red") {
+    return "green";
+  } else if (face == "green") {
+    return "red";
+  }
+}
+
 
 // Work out the up vec for given phi and theta
 function angleworker (dX, dY){
@@ -314,42 +568,25 @@ window.onload = function init() {
   //   callPush("s","E","S","E","e","e","e","e");};
   // document.getElementById( "SiButton" ).onclick = function () {
   //   callPush("E","M","E","M","s","M","S","m");};
-  document.getElementById( "LButton" ).onclick = function () {
-    callPush("L","F","R","B","L","F","R","B");};
-  document.getElementById( "RButton" ).onclick = function () {
-    callPush("R","B","L","F","R","B","L","F");};
-  document.getElementById( "UButton" ).onclick = function () {
-    callPush("D","D","D","D","U","U","U","U");};
-  document.getElementById( "DButton" ).onclick = function () {
-    callPush("U","U","U","U","D","D","D","D");};
-  document.getElementById( "FButton" ).onclick = function () {
-    callPush("B","L","F","R","F","R","B","L");};
-  document.getElementById( "BButton" ).onclick = function () {
-    callPush("F","R","B","L","B","L","F","R");};
-  document.getElementById( "MButton" ).onclick = function () {
-    callPush("M","S","m","s","M","S","m","s");};
-  document.getElementById( "EButton" ).onclick = function () {
-    callPush("e","e","e","e","E","E","E","E");};
-  document.getElementById( "SButton" ).onclick = function () {
-    callPush("s","M","S","m","S","m","s","M");};
-  document.getElementById( "LiButton" ).onclick = function () {
-    callPush("l","f","r","b","l","f","r","b");};
-  document.getElementById( "RiButton" ).onclick = function () {
-    callPush("r","b","l","f","r","b","l","f");};
-  document.getElementById( "UiButton" ).onclick = function () {
-    callPush("d","d","d","d","u","u","u","u");};
-  document.getElementById( "DiButton" ).onclick = function () {
-    callPush("u","u","u","u","d","d","d","d");};
-  document.getElementById( "FiButton" ).onclick = function () {
-    callPush("b","l","f","r","f","r","b","l");};
-  document.getElementById( "BiButton" ).onclick = function () {
-    callPush("f","r","b","l","b","l","f","r");};
-  document.getElementById( "MiButton" ).onclick = function () {
-    callPush("m","s","M","S","m","s","M","S");};
-  document.getElementById( "EiButton" ).onclick = function () {
-    callPush("E","E","E","E","e","e","e","e");};
-  document.getElementById( "SiButton" ).onclick = function () {
-    callPush("S","m","s","M","s","M","S","m");};
+  document.getElementById( "LButton" ).onclick = function () {callPush("L");};
+  document.getElementById( "RButton" ).onclick = function () {callPush("R");};
+  document.getElementById( "UButton" ).onclick = function () {callPush("U");};
+  document.getElementById( "DButton" ).onclick = function () {callPush("D");};
+  document.getElementById( "FButton" ).onclick = function () {callPush("F");};
+  document.getElementById( "BButton" ).onclick = function () {callPush("B");};
+  document.getElementById( "MButton" ).onclick = function () {callPush("M");};
+  document.getElementById( "EButton" ).onclick = function () {callPush("E");};
+  document.getElementById( "SButton" ).onclick = function () {callPush("S");};
+  document.getElementById( "LiButton" ).onclick = function () {callPush("l");};
+  document.getElementById( "RiButton" ).onclick = function () {callPush("r");};
+  document.getElementById( "UiButton" ).onclick = function () {callPush("u");};
+  document.getElementById( "DiButton" ).onclick = function () {callPush("d");};
+  document.getElementById( "FiButton" ).onclick = function () {callPush("f");};
+  document.getElementById( "BiButton" ).onclick = function () {callPush("b");};
+  document.getElementById( "MiButton" ).onclick = function () {callPush("m");};
+  document.getElementById( "EiButton" ).onclick = function () {callPush("e");};
+  document.getElementById( "SiButton" ).onclick = function () {callPush("s");};
+
   document.getElementById( "randomTurnCount").onkeypress = function(e) {
     if (!e) e = window.event;
     var keyCode = e.keyCode || e.which;
